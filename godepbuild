@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "install git and mercurial"
+apk add --update git mercurial make bash gcc linux-headers
+
+echo "install godep"
+go get github.com/tools/godep
+
+echo "build mesos-k8s"
+cd /go/src/github.com/kubernetes/kubernetes
+
+if [ $1 ]; then
+git checkout v$1
+fi
+
+make
